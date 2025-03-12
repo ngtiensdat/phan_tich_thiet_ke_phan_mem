@@ -1,0 +1,180 @@
+{% extends "base.html" %} {% block content %}
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+
+  h1,
+  h2 {
+    color: #333;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+
+  table,
+  th,
+  td {
+    border: 1px solid #ddd;
+  }
+
+  th,
+  td {
+    padding: 8px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+
+  button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #45a049;
+  }
+
+  a {
+    color: #4caf50;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+  }
+
+  .header,
+  .footer {
+    background: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+  }
+
+  .header a,
+  .footer a {
+    color: #fff;
+  }
+</style>
+
+<div class="container">
+  <div class="header">
+    <h1>Đăng ký môn học</h1>
+  </div>
+
+  {% if 'user_id' in session %}
+  <p>
+    Xin chào, {{ user.username }} |
+    <a href="{{ url_for('logout') }}">Đăng xuất</a> |
+    <a href="{{ url_for('timetable') }}">Xem thời khóa biểu</a>
+  </p>
+
+  <h2>Danh sách môn học</h2>
+  <form method="POST" action="{{ url_for('course_registration') }}">
+    <table>
+      <tr>
+        <th>Chọn</th>
+        <th>Tên môn học</th>
+        <th>Số tín chỉ</th>
+        <th>Ngày học</th>
+        <th>Giờ học</th>
+        <th>Phòng học</th>
+        <th>Giảng viên</th>
+      </tr>
+      {% for course in courses %}
+      <tr>
+        <td>
+          <input
+            type="checkbox"
+            name="course_ids"
+            value="{{ course.id }}"
+            {%
+            if
+            course.id
+            in
+            registered_course_ids
+            %}disabled{%
+            endif
+            %}
+          />
+        </td>
+        <td>{{ course.name }}</td>
+        <td>{{ course.credits }}</td>
+        <td>{{ course.day_of_week }}</td>
+        <td>{{ course.time }}</td>
+        <td>{{ course.room }}</td>
+        <td>{{ course.lecturer }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <button type="submit">Đăng ký các môn đã chọn</button>
+  </form>
+
+  <h2>Môn học đã đăng ký</h2>
+  {% if registrations %}
+  <table>
+    <tr>
+      <th>Tên môn học</th>
+      <th>Số tín chỉ</th>
+      <th>Ngày học</th>
+      <th>Giờ học</th>
+      <th>Phòng học</th>
+      <th>Giảng viên</th>
+      <th>Thao tác</th>
+    </tr>
+    {% for reg in registrations %}
+    <tr>
+      <td>{{ reg.course.name }}</td>
+      <td>{{ reg.course.credits }}</td>
+      <td>{{ reg.course.day_of_week }}</td>
+      <td>{{ reg.course.time }}</td>
+      <td>{{ reg.course.room }}</td>
+      <td>{{ reg.course.lecturer }}</td>
+      <td>
+        <a
+          href="{{ url_for('delete_course', registration_id=reg.id) }}"
+          onclick="return confirm('Bạn có chắc muốn xóa môn học này?');"
+          >Xóa</a
+        >
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <p>Bạn chưa đăng ký môn học nào.</p>
+  {% endif %}
+
+  <p><a href="{{ url_for('dashboard') }}">Quay lại Dashboard</a></p>
+  {% else %}
+  <p>
+    Vui lòng <a href="{{ url_for('login') }}">đăng nhập</a> để đăng ký môn học.
+  </p>
+  {% endif %}
+</div>
+{% endblock %}

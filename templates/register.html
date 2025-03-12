@@ -1,0 +1,60 @@
+{% extends "base.html" %} {% block content %}
+<h1>Đăng ký</h1>
+<form
+  method="POST"
+  style="
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  "
+>
+  <div style="margin-bottom: 15px">
+    <label style="display: block; margin-bottom: 5px">Tên người dùng:</label>
+    <input
+      type="text"
+      name="username"
+      required
+      style="
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      "
+    />
+  </div>
+  <div style="margin-bottom: 15px">
+    <label style="display: block; margin-bottom: 5px">Mật khẩu:</label>
+    <input
+      type="password"
+      name="password"
+      required
+      style="
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      "
+    />
+  </div>
+  <button
+    type="submit"
+    style="
+      width: 100%;
+      padding: 10px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    "
+  >
+    Đăng ký
+  </button>
+  <p style="text-align: center; margin-top: 15px">
+    Đã có tài khoản? <a href="{{ url_for('login') }}">Đăng nhập</a>
+  </p>
+</form>
+{% endblock %}

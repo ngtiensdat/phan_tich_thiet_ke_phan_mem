@@ -1,0 +1,197 @@
+body {
+    display: flex;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    height: 100vh;
+}
+
+.all {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+.sidebar-logo {
+    display: block;
+    width: 80%;
+    padding-bottom: 15px;
+    max-width: 150px;
+}
+
+.sidebar {
+    width: 15%;
+    background-color: #04284d;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    position: fixed;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+}
+
+.sidebar a {
+    width: 100%;
+    color: white;
+    text-decoration: none;
+    padding: 12px;
+    margin: 5px 0;
+    background-color: #064a87;
+    /* Màu gần giống với sidebar */
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+    display: block;
+}
+
+.sidebar a:hover {
+    background-color: #0056b3;
+}
+
+.content {
+    margin-left: 15%;
+    width: 85%;
+    padding: 20px;
+    background-color: #ecf0f1;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.table,
+.table th,
+.table td {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.table th {
+    background-color: #064a87;
+    /* Đồng bộ màu với sidebar */
+    color: white;
+    font-weight: bold;
+}
+
+.logout-button {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    padding: 12px;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 10%;
+    min-width: 100px;
+    /* Đảm bảo nút không quá nhỏ */
+    text-align: center;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.logout-button:hover {
+    background-color: darkred;
+    transform: scale(1.05);
+}
+
+.contact-bubble {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #064a87;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.course-container,
+.class-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.course-box,
+.class-box {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #f9f9f9;
+    cursor: pointer;
+    width: 200px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.course-box:hover,
+.class-box:hover {
+    background: #e0e0e0;
+}
+
+.student-info-container {
+    display: flex;
+    align-items: flex-start;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    margin: 20px auto;
+}
+
+.avatar {
+    width: 150px;
+    height: 200px;
+    border-radius: 5px;
+    object-fit: cover;
+    border: 2px solid #ddd;
+    margin-right: 20px;
+}
+
+.student-info-content {
+    flex: 1;
+}
+
+.student-info-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #003366;
+    border-bottom: 2px solid #ff6600;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.student-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 30px;
+}
+
+.student-info-grid p {
+    font-size: 16px;
+    color: #333;
+}
+
+.student-info-grid p strong {
+    color: #000;
+}

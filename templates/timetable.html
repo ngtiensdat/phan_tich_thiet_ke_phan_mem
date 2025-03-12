@@ -1,0 +1,88 @@
+{% extends "base.html" %} {% block content %}
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+  }
+  h1,
+  h2 {
+    color: #4caf50;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  }
+  table th,
+  table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  table th {
+    background-color: #4caf50;
+    color: white;
+  }
+  table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  a {
+    color: #4caf50;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  .welcome-message {
+    margin-bottom: 20px;
+  }
+  .actions {
+    margin-top: 20px;
+  }
+</style>
+
+<h1>Thời khóa biểu</h1>
+
+{% if 'user_id' in session %}
+<p class="welcome-message">
+  Xin chào, {{ user.username }} |
+  <a href="{{ url_for('logout') }}">Đăng xuất</a> |
+  <a href="{{ url_for('course_registration') }}">Đăng ký môn học</a>
+</p>
+
+<h2>Thời khóa biểu của bạn</h2>
+{% if registrations %}
+<table>
+  <tr>
+    <th>Tên môn học</th>
+    <th>Số tín chỉ</th>
+    <th>Ngày học</th>
+    <th>Giờ học</th>
+    <th>Phòng học</th>
+    <th>Giảng viên</th>
+  </tr>
+  {% for reg in registrations %}
+  <tr>
+    <td>{{ reg.course.name }}</td>
+    <td>{{ reg.course.credits }}</td>
+    <td>{{ reg.course.day_of_week }}</td>
+    <td>{{ reg.course.time }}</td>
+    <td>{{ reg.course.room }}</td>
+    <td>{{ reg.course.lecturer }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>Bạn chưa đăng ký môn học nào.</p>
+{% endif %}
+
+<p class="actions">
+  <a href="{{ url_for('dashboard') }}">Quay lại Dashboard</a>
+</p>
+{% else %}
+<p>
+  Vui lòng <a href="{{ url_for('login') }}">đăng nhập</a> để xem thời khóa biểu.
+</p>
+{% endif %} {% endblock %}
