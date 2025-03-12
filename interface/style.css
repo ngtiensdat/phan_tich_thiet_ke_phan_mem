@@ -149,23 +149,22 @@ body {
 }
 
 .student-info-container {
+    max-width: 1000px;
+    background: #fff;
+    padding: 60px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: flex-start;
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    max-width: 900px;
-    margin: 20px auto;
+    gap: 60px;
 }
 
 .avatar {
     width: 150px;
     height: 200px;
-    border-radius: 5px;
+    border-radius: 8px;
     object-fit: cover;
     border: 2px solid #ddd;
-    margin-right: 20px;
 }
 
 .student-info-content {
@@ -176,22 +175,51 @@ body {
     font-size: 20px;
     font-weight: bold;
     color: #003366;
-    border-bottom: 2px solid #ff6600;
-    padding-bottom: 5px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+    border-bottom: 5px solid #ff6600;
+    padding-bottom: 10px;
 }
 
 .student-info-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px 30px;
+    gap: 17px 20px;
 }
 
 .student-info-grid p {
-    font-size: 16px;
-    color: #333;
+    margin: 0;
 }
 
-.student-info-grid p strong {
-    color: #000;
+.student-info-grid strong {
+    color: #003366;
+}
+
+button {
+    background-color: #ff6600;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 15px;
+}
+
+button:hover {
+    background-color: #e65c00;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+    background: #e9ecef;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+.footer a {
+    text-decoration: none;
+    color: #002c77;
+    font-weight: bold;
 }
