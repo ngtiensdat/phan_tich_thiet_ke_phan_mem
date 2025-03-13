@@ -1,0 +1,28 @@
+{{! Kế thừa layout từ main.hbs }}
+{{#> main}}
+    <div class="container">
+        <h1>Thông Tin Giảng Viên</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên</th>
+                    <th>Email</th>
+                    <th>Chuyên Ngành</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each gvien_list}}
+                <tr>
+                    <td>{{this.id}}</td>
+                    <td>{{this.name}}</td>
+                    <td>{{this.email}}</td>
+                    <td>{{this.specialization}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+{{/main}}
+<link rel="stylesheet" type="text/css" href="/css/gvien_info.css">
+<script defer src="/js/gvien_info.js"></script>

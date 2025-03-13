@@ -44,6 +44,7 @@ const homepageRouter = require("./routers/homepage.routes");
 const registrationRouter = require("./routers/registration.routes");
 const studentInfoRouter = require("./routers/student_info.routes");
 const scheduleRouter = require("./routers/schedule.routes");
+const gvienInfoRouter = require("./routers/gvien_info.routes");
 
 // Route trang chủ -> sử dụng homepage.routes
 app.use("/", homepageRouter);
@@ -58,6 +59,9 @@ app.use("/student_info", studentInfoRouter); // Sử dụng /student_info như t
 
 // Thời khóa biểu
 app.use("/schedule", scheduleRouter); // Sử dụng /schedule như trong mã của bạn
+
+//giao vien info
+app.use("/gvien_info", gvienInfoRouter);
 
 console.log("Current directory:", __dirname);
 console.log("Views directory:", path.join(__dirname, "resources", "view")); // Debug log
