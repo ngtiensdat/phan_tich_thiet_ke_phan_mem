@@ -1,0 +1,39 @@
+.container-2 {
+    display: flex;
+    width: 60%;
+    padding: 20px;
+    gap: 20px;
+}
+.sidebar-2 {
+            width: 30%;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+.main-content {
+    width:70%;
+}
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 10px 40px 10px 10px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.search-icon {
+    position: absolute;
+    right: 10px;
+    font-size: 18px;
+    color: #555;
+}
+
