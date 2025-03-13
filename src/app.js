@@ -15,16 +15,13 @@ const hbs = exphbs.create({
             const result = a === b;
             console.log("Comparing:", a, b, "Result:", result); // Debug log
             if (options && typeof options.fn === "function") {
-                // Block helper context
                 return result ? options.fn(this) : options.inverse(this);
             }
-            // Inline or sub-expression context (return boolean)
             return result;
         },
     },
 });
 
-// Explicitly register the helper on the Handlebars instance
 hbs.handlebars.registerHelper("eq", function (a, b, options) {
     const result = a === b;
     console.log("Helper registered and comparing:", a, b, "Result:", result); // Debug log
@@ -44,6 +41,9 @@ app.use(express.static(path.join(__dirname, "public")));
 // Routes
 const signInRouter = require("./routers/sign_in.routes");
 const homepageRouter = require("./routers/homepage.routes");
+const registrationRouter = require("./routers/registration.routes");
+const studentInfoRouter = require("./routers/student_info.routes");
+const scheduleRouter = require("./routers/schedule.routes");
 
 // Route trang chủ -> sử dụng homepage.routes
 app.use("/", homepageRouter);
@@ -53,11 +53,16 @@ app.use("/sign_in", signInRouter);
 // Trang đăng ký
 app.use("/registration", registrationRouter);
 
+// Thông tin sinh viên
+app.use("/student_info", studentInfoRouter); // Sử dụng /student_info như trong mã của bạn
+
+// Thời khóa biểu
+app.use("/schedule", scheduleRouter); // Sử dụng /schedule như trong mã của bạn
 
 console.log("Current directory:", __dirname);
+console.log("Views directory:", path.join(__dirname, "resources", "view")); // Debug log
 
 // Khởi động server
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
-    console.log("Views directory:", path.join(__dirname, "resources", "view")); // Debug log
 });

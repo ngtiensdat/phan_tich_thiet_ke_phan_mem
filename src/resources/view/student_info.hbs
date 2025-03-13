@@ -1,0 +1,37 @@
+<!-- src/resources/view/student-info.hbs -->
+<div id="student-info" class="student-info">
+    <div class="student-info-container">
+        <img id="student-avatar" src="default-avatar.png" alt="Ảnh đại diện" class="avatar">
+        <div class="student-info-content">
+            <div class="student-info-title">THÔNG TIN CƠ BẢN</div>
+            <div class="student-info-grid">
+                <p><strong>Mã SV:</strong> <input type="text" id="student-id" value="{{studentInfo.id}}" disabled></p>
+                <p><strong>Họ và đệm:</strong> <input type="text" id="student-lastname" value="{{studentInfo.lastname}}" disabled></p>
+                <p><strong>Ngày sinh:</strong> <input type="date" id="student-dob" value="{{studentInfo.dob}}" disabled></p>
+                <p><strong>Tên:</strong> <input type="text" id="student-firstname" value="{{studentInfo.firstname}}" disabled></p>
+                <p><strong>Khóa đào tạo:</strong> <input type="text" id="student-course" value="{{studentInfo.course}}" disabled></p>
+                <p><strong>Lớp:</strong> <input type="text" id="student-class" value="{{studentInfo.class}}" disabled></p>
+                <p><strong>Niên khóa:</strong> <input type="text" id="student-year" value="{{studentInfo.year}}" disabled></p>
+                <p><strong>Khoa quản lý:</strong> <input type="text" id="student-faculty" value="{{studentInfo.faculty}}" disabled></p>
+                <p><strong>Email:</strong> <input type="email" id="student-email" value="{{studentInfo.email}}" disabled></p>
+                <p><strong>Ngành:</strong> <input type="text" id="student-major" value="{{studentInfo.major}}" disabled></p>
+                <p><strong>Giới tính:</strong>
+                    <select id="student-gender" disabled>
+                        <option value="Nam" {{#if (eq studentInfo.gender "Nam" )}}selected{{/if}}>Nam</option>
+                        <option value="Nữ" {{#if (eq studentInfo.gender "Nữ" )}}selected{{/if}}>Nữ</option>
+                        <option value="Khác" {{#if (eq studentInfo.gender "Khác" )}}selected{{/if}}>Khác</option>
+                    </select>
+                </p>
+                <p><strong>Hệ đào tạo:</strong> <input type="text" id="student-system" value="{{studentInfo.system}}" disabled></p>
+                <p><strong>Trạng thái:</strong> <input type="text" id="student-status" value="{{studentInfo.status}}" disabled></p>
+                <p><strong>Chức vụ:</strong> <input type="text" id="student-role" value="{{studentInfo.role}}" disabled></p>
+                <p><strong>Chương trình đào tạo:</strong> <input type="text" id="student-program" value="{{studentInfo.program}}" disabled></p>
+            </div>
+            <button id="edit-info-btn" onclick="enableEdit()">Cập nhật thông tin</button>
+            <button id="save-info-btn" onclick="saveStudentInfo()" style="display: none;">Lưu thông tin</button>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" type="text/css" href="/css/student_info.css">
+<script defer src="/js/student_info.js"></script>

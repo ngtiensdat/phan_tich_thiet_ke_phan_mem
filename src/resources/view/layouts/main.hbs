@@ -8,11 +8,27 @@
     <title>Đăng ký tín chỉ</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="/css/main_interface.css">
-    <link rel="stylesheet" type="text/css" href="/css/trang_chu.css">
 </head>
 
 <body>
-    {{{body}}}
+    <div class="all">
+        <!-- Sidebar (Common Layout) -->
+        <div class="sidebar">
+            <img src="https://phenikaa-uni.edu.vn:3600/pu/vi/modules/logo-white_20210219042705.png" alt="Phenikaa Logo"
+                class="sidebar-logo" width="150">
+            <a href="/"><i class="fas fa-home"></i> Trang chủ</a>
+            <a href="/student_info"><i class="fas fa-user-graduate"></i> Thông tin học sinh</a>
+            <a href="/schedule"><i class="fas fa-calendar-alt"></i> Thời khóa biểu</a>
+            <a href="/registration"><i class="fas fa-edit"></i> Đăng ký học</a>
+            <button class="logout-button" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
+        </div>
+
+        <!-- Dynamic Content Area -->
+        <div class="content">
+            {{{body}}}
+        </div>
+    </div>
+
     <script defer src="/js/main_interface.js"></script>
 </body>
 

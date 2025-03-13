@@ -1,161 +1,24 @@
 <!-- src/resources/view/homepage.hbs -->
-<div class="all">
-    <div class="sidebar">
-        <img src="https://phenikaa-uni.edu.vn:3600/pu/vi/modules/logo-white_20210219042705.png" alt="Phenikaa Logo"
-            class="sidebar-logo" width="150">
-        <a onclick="showSection('home-info')"><i class="fas fa-home"></i> Trang chủ</a>
-        <a onclick="showSection('student-info')"><i class="fas fa-user-graduate"></i> Thông tin học sinh</a>
-        <a onclick="showSection('course-list')"><i class="fas fa-book"></i> Danh sách môn học</a>
-        <a onclick="showSection('teacher-list')"><i class="fas fa-chalkboard-teacher"></i> Giáo viên</a>
-        <a onclick="showSection('schedule')"><i class="fas fa-calendar-alt"></i> Thời khóa biểu</a>
-        <a onclick="showSection('registration')"><i class="fas fa-edit"></i> Đăng ký học</a>
-        <button class="logout-button" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
-    </div>
-    <div class="content">
-        <div id="home-info" class="home-info">
-            <!-- Hero Section -->
-            <section class="hero">
-                <div class="hero-container">
-                    <img src="/img/san_truong.jpg" alt="Mô tả ảnh" class="hero-image">
-                    <div class="hero-text">
-                        <h1>Hệ thống đăng ký tín chỉ</h1>
-                        <p>Quản lý việc đăng ký môn học một cách dễ dàng và thuận tiện.</p>
-                        <a href="#" class="btn">Bắt đầu ngay</a>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Thông tin người dùng -->
-            <div class="welcome-section">
-                <h2>Chào mừng, {{userEmail}}</h2>
-                <p>Hệ thống giúp sinh viên dễ dàng đăng ký các môn học, xem lịch học và thông tin cá nhân.</p>
-                <p>Vui lòng chọn các mục trong thanh bên để thao tác.</p>
-            </div>
-
-            <!-- Môn học mới nhất -->
-            <section class="latest-courses">
-                <h2>Môn học mới nhất. <a href="#">Xem ngay.</a></h2>
-
-                <!-- Nút chuyển đổi -->
-                <button id="prev-btn" class="slider-btn left"></button>
-                <button id="next-btn" class="slider-btn right"></button>
-
-                <!-- Danh sách khóa học -->
-                <div class="course-container">
-                    <div class="course-list">
-                        {{#each courses}}
-                        <div class="course-card {{this.theme}}">
-                            <img src="{{this.image}}" alt="{{this.name}}">
-                            <h3>{{this.name}}</h3>
-                            <p>{{{this.description}}}</p>
-                            <p class="credits">Số tín chỉ: {{this.credits}}</p>
-                        </div>
-                        {{/each}}
-                    </div>
-                </div>
-            </section>
-
-            <!-- Features Section -->
-            <section class="features">
-                <div class="feature">
-                    <h2>Chọn khóa học dễ dàng</h2>
-                    <p>Tìm kiếm và đăng ký lớp học theo sở thích.</p>
-                </div>
-                <div class="feature">
-                    <h2>Quản lý thời khóa biểu</h2>
-                    <p>Xem lịch học chi tiết và tránh trùng lặp.</p>
-                </div>
-                <div class="feature">
-                    <h2>Hỗ trợ 24/7</h2>
-                    <p>Liên hệ bộ phận hỗ trợ nếu gặp vấn đề.</p>
-                </div>
-            </section>
-        </div>
-        <div id="student-info" class="student-info">
-            <div class="student-info-container">
-                <img id="student-avatar" src="default-avatar.png" alt="Ảnh đại diện" class="avatar">
-                <div class="student-info-content">
-                    <div class="student-info-title">THÔNG TIN CƠ BẢN</div>
-                    <div class="student-info-grid">
-                        <p><strong>Mã SV:</strong> <input type="text" id="student-id" value="{{studentInfo.id}}"
-                                disabled></p>
-                        <p><strong>Họ và đệm:</strong> <input type="text" id="student-lastname"
-                                value="{{studentInfo.lastname}}" disabled></p>
-                        <p><strong>Ngày sinh:</strong> <input type="date" id="student-dob" value="{{studentInfo.dob}}"
-                                disabled></p>
-                        <p><strong>Tên:</strong> <input type="text" id="student-firstname"
-                                value="{{studentInfo.firstname}}" disabled></p>
-                        <p><strong>Khóa đào tạo:</strong> <input type="text" id="student-course"
-                                value="{{studentInfo.course}}" disabled></p>
-                        <p><strong>Lớp:</strong> <input type="text" id="student-class" value="{{studentInfo.class}}"
-                                disabled></p>
-                        <p><strong>Niên khóa:</strong> <input type="text" id="student-year" value="{{studentInfo.year}}"
-                                disabled></p>
-                        <p><strong>Khoa quản lý:</strong> <input type="text" id="student-faculty"
-                                value="{{studentInfo.faculty}}" disabled></p>
-                        <p><strong>Email:</strong> <input type="email" id="student-email" value="{{studentInfo.email}}"
-                                disabled></p>
-                        <p><strong>Ngành:</strong> <input type="text" id="student-major" value="{{studentInfo.major}}"
-                                disabled></p>
-                        <p><strong>Giới tính:</strong>
-                            <select id="student-gender" disabled>
-                                <option value="Nam" {{#if (eq studentInfo.gender "Nam" )}}selected{{/if}}>Nam</option>
-                                <option value="Nữ" {{#if (eq studentInfo.gender "Nữ" )}}selected{{/if}}>Nữ</option>
-                                <option value="Khác" {{#if (eq studentInfo.gender "Khác" )}}selected{{/if}}>Khác
-                                </option>
-                            </select>
-                        </p>
-                        <p><strong>Hệ đào tạo:</strong> <input type="text" id="student-system"
-                                value="{{studentInfo.system}}" disabled></p>
-                        <p><strong>Trạng thái:</strong> <input type="text" id="student-status"
-                                value="{{studentInfo.status}}" disabled></p>
-                        <p><strong>Chức vụ:</strong> <input type="text" id="student-role" value="{{studentInfo.role}}"
-                                disabled></p>
-                        <p><strong>Chương trình đào tạo:</strong> <input type="text" id="student-program"
-                                value="{{studentInfo.program}}" disabled></p>
-                    </div>
-                    <button id="edit-info-btn" onclick="enableEdit()">Cập nhật thông tin</button>
-                    <button id="save-info-btn" onclick="saveStudentInfo()" style="display: none;">Lưu thông tin</button>
-                </div>
+<div id="home-info" class="home-info">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <img src="/img/san_truong.jpg" alt="Mô tả ảnh" class="hero-image">
+            <div class="hero-text">
+                <h1>Hệ thống đăng ký tín chỉ</h1>
+                <p>Quản lý việc đăng ký môn học một cách dễ dàng và thuận tiện.</p>
+                <a href="#" class="btn">Bắt đầu ngay</a>
             </div>
         </div>
-        <div id="registration" class="registration">
-            <div class="container-2">
-                <div class="sidebar-2">
-                    <h3>Thông tin đăng ký</h3>
-                    <p>Số tín chỉ tối thiểu: 12</p>
-                    <p>Số tín chỉ tối đa: 24</p>
-                    <p>Số lớp đã đăng ký: <span id="registered-count">0</span></p>
-                    <p>Số tín chỉ đã đăng ký: <span id="credit-count">0</span></p>
-                </div>
-                <div class="main-content">
-                    <div class="search-bar">
-                        <h2>Tìm kiếm lớp học</h2>
-                        <div class="search-container">
-                            <input type="text" id="search" placeholder="Tìm kiếm môn học...">
-                            <span class="search-icon">&#128269;</span>
-                        </div>
-                    </div>
+    </section>
 
-                    <div class="course-list">
-                        <div class="course-card">
-                            <h4>CS101 - Lập trình C++</h4>
-                            <p>Giảng viên: Thầy A</p>
-                            <button class="btn-register">Đăng ký</button>
-                        </div>
-                        <div class="course-card">
-                            <h4>CS102 - Lập trình Java</h4>
-                            <p>Giảng viên: Cô B</p>
-                            <button class="btn-register">Đăng ký</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Thông tin người dùng -->
+    <div class="welcome-section">
+        <h2>Chào mừng, {{userEmail}}</h2>
+        <p>Hệ thống giúp sinh viên dễ dàng đăng ký các môn học, xem lịch học và thông tin cá nhân.</p>
+        <p>Vui lòng chọn các mục trong thanh bên để thao tác.</p>
     </div>
 </div>
 
-<link rel="stylesheet" type="text/css" href="/css/main_interface.css">
 <link rel="stylesheet" type="text/css" href="/css/trang_chu.css">
-<link rel="stylesheet" type="text/css" href="/css/muc_dki_tin.css">
 <script defer src="/js/trangchu.js"></script>

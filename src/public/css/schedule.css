@@ -1,0 +1,166 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #112D54;
+    color: white;
+    position: fixed;
+    padding: 20px;
+}
+
+.sidebar-logo {
+    display: block;
+    width: 80%;
+    padding-bottom: 15px;
+    max-width: 150px;
+}
+
+.sidebar {
+    width: 15%;
+    background-color: #04284d;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    position: fixed;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+}
+
+.sidebar a {
+    width: 100%;
+    color: white;
+    text-decoration: none;
+    padding: 12px;
+    margin: 5px 0;
+    background-color: #064a87;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+    display: block;
+}
+
+.sidebar a:hover {
+    background-color: #0056b3;
+}
+
+.logout-button {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    padding: 12px;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 10%;
+    min-width: 100px;
+    text-align: center;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.logout-button:hover {
+    background-color: darkred;
+    transform: scale(1.05);
+}
+
+.content {
+    margin-left: 260px;
+    padding: 20px;
+    background: #F5F7FA;
+    min-height: 100vh;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.header input {
+    width: 300px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.calendar-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.calendar-header button {
+    background: #112D54;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.day {
+    background: #E0E0E0;
+    padding: 15px;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.day:hover {
+    background: #FFC107;
+}
+
+.day.active {
+    background: #FF9800;
+    color: white;
+}
+
+.schedule {
+    margin-top: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#eventsList li {
+    padding: 10px;
+    background: #E3F2FD;
+    margin-top: 5px;
+    border-radius: 5px;
+}
