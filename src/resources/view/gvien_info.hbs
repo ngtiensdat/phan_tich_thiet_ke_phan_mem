@@ -1,28 +1,36 @@
+{{! src/resources/view/gvien_info.hbs }}
 {{! Kế thừa layout từ main.hbs }}
 {{#> main}}
-    <div class="container">
-        <h1>Thông Tin Giảng Viên</h1>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Tên</th>
-                    <th>Email</th>
-                    <th>Chuyên Ngành</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each gvien_list}}
-                <tr>
-                    <td>{{this.id}}</td>
-                    <td>{{this.name}}</td>
-                    <td>{{this.email}}</td>
-                    <td>{{this.specialization}}</td>
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
+    <div id="gvien-info" class="student-info">
+        <div class="student-info-container">
+            <img id="gvien-avatar" src="default-avatar.png" alt="Ảnh đại diện" class="avatar">
+            <div class="student-info-content">
+                <div class="student-info-title">THÔNG TIN GIẢNG VIÊN</div>
+                <div class="student-info-grid">
+                    <p><strong>Mã GV:</strong> <input type="text" id="gvien-id" value="{{gvienInfo.id}}" disabled></p>
+                    <p><strong>Họ và đệm:</strong> <input type="text" id="gvien-lastname" value="{{gvienInfo.lastname}}" disabled></p>
+                    <p><strong>Ngày sinh:</strong> <input type="date" id="gvien-dob" value="{{gvienInfo.dob}}" disabled></p>
+                    <p><strong>Tên:</strong> <input type="text" id="gvien-firstname" value="{{gvienInfo.firstname}}" disabled></p>
+                    <p><strong>Bộ môn:</strong> <input type="text" id="gvien-department" value="{{gvienInfo.department}}" disabled></p>
+                    <p><strong>Chuyên ngành:</strong> <input type="text" id="gvien-specialization" value="{{gvienInfo.specialization}}" disabled></p>
+                    <p><strong>Email:</strong> <input type="email" id="gvien-email" value="{{gvienInfo.email}}" disabled></p>
+                    <p><strong>Trình độ:</strong> <input type="text" id="gvien-degree" value="{{gvienInfo.degree}}" disabled></p>
+                    <p><strong>Giới tính:</strong>
+                        <select id="gvien-gender" disabled>
+                            <option value="Nam" {{#if (eq gvienInfo.gender "Nam")}}selected{{/if}}>Nam</option>
+                            <option value="Nữ" {{#if (eq gvienInfo.gender "Nữ")}}selected{{/if}}>Nữ</option>
+                            <option value="Khác" {{#if (eq gvienInfo.gender "Khác")}}selected{{/if}}>Khác</option>
+                        </select>
+                    </p>
+                    <p><strong>Chức vụ:</strong> <input type="text" id="gvien-role" value="{{gvienInfo.role}}" disabled></p>
+                    <p><strong>Phòng ban:</strong> <input type="text" id="gvien-faculty" value="{{gvienInfo.faculty}}" disabled></p>
+                </div>
+                <button id="edit-info-btn" onclick="enableEdit()">Cập nhật thông tin</button>
+                <button id="save-info-btn" onclick="saveGvienInfo()" style="display: none;">Lưu thông tin</button>
+            </div>
+        </div>
     </div>
 {{/main}}
+
 <link rel="stylesheet" type="text/css" href="/css/gvien_info.css">
 <script defer src="/js/gvien_info.js"></script>
