@@ -43,6 +43,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
 const signInRouter = require("./routers/sign_in.routes");
+//const registrationRouter = require("./routers/registration.routes"); 
 const homepageRouter = require("./routers/homepage.routes");
 
 // Route trang chủ -> sử dụng homepage.routes
@@ -51,7 +52,7 @@ app.use("/", homepageRouter);
 // Route trang đăng nhập
 app.use("/sign_in", signInRouter);
 // Trang đăng ký
-app.use("/registration", registrationRouter);
+//app.use("/registration", registrationRouter);
 
 
 console.log("Current directory:", __dirname);
