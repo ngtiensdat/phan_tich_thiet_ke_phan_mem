@@ -1,9 +1,21 @@
+require('dotenv').config();
+
 const express = require("express");
 const path = require("path");
 const exphbs = require("express-handlebars");
+const bodyParser = require("body-parser");
+const morgan = require("morgan");
+const knex = require("./config/database");
+const session = require("express-session");
 
+
+const PORT = process.env.PORT || 5000;
 const app = express();
-const PORT = process.env.PORT || 3000;
+
+// Middleware logging
+app.use(morgan("dev"));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // Cấu hình Express-Handlebars
 const hbs = exphbs.create({
@@ -11,62 +23,103 @@ const hbs = exphbs.create({
     defaultLayout: "main",
     layoutsDir: path.join(__dirname, "resources", "view", "layouts"),
     helpers: {
-        eq: function (a, b, options) {
-            const result = a === b;
-            console.log("Comparing:", a, b, "Result:", result); // Debug log
-            if (options && typeof options.fn === "function") {
-                return result ? options.fn(this) : options.inverse(this);
-            }
-            return result;
+        eq: function (a, b) {
+            return a === b;
         },
+        formatDate: function (date) {
+            return new Date(date).toLocaleDateString('vi-VN');
+        },
+        formatDateInput: function (date) {
+            if (!date) return '';
+            const d = new Date(date);
+            return d.getFullYear() + '-' +
+                String(d.getMonth() + 1).padStart(2, '0') + '-' +
+                String(d.getDate()).padStart(2, '0');
+        },
+        add: function (a, b) {
+            return a + b;
+        }
     },
 });
-
-hbs.handlebars.registerHelper("eq", function (a, b, options) {
-    const result = a === b;
-    console.log("Helper registered and comparing:", a, b, "Result:", result); // Debug log
-    if (options && typeof options.fn === "function") {
-        return result ? options.fn(this) : options.inverse(this);
-    }
-    return result;
-});
-
 app.engine("hbs", hbs.engine);
 app.set("view engine", "hbs");
-app.set("views", path.join(__dirname, "resources", "view")); // Path to views directory
+app.set("views", path.join(__dirname, "resources", "view"));
 
-// Middleware để phục vụ file tĩnh (CSS, JS, hình ảnh)
+// Middleware phục vụ file tĩnh
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Routes
-const signInRouter = require("./routers/sign_in.routes");
-const homepageRouter = require("./routers/homepage.routes");
-const registrationRouter = require("./routers/registration.routes");
-const studentInfoRouter = require("./routers/student_info.routes");
-const scheduleRouter = require("./routers/schedule.routes");
-const gvienInfoRouter = require("./routers/gvien_info.routes");
+// Cấu hình session
+app.use(session({
+    secret: "your-secret-key",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
+}));
 
-// Route trang chủ -> sử dụng homepage.routes
-app.use("/", homepageRouter);
+// Import các route chính
+const adminRouter = require("./routers/admin.routes");
+const studentRouter = require("./routers/student.routes");
+const teacherRouter = require("./routers/teacher.routes");
+const authRouter = require("./routers/auth.routes");
 
-// Route trang đăng nhập
-app.use("/sign_in", signInRouter);
-// Trang đăng ký
-app.use("/registration", registrationRouter);
+// Định tuyến
+app.use("/admin", adminRouter);
+app.use("/student", studentRouter);
+app.use("/teacher", teacherRouter);
+app.use("/auth", authRouter);
 
-// Thông tin sinh viên
-app.use("/student_info", studentInfoRouter); // Sử dụng /student_info như trong mã của bạn
+// Trang chủ
+app.get("/", (req, res) => {
+    if (req.session.user) {
+        // Nếu đã đăng nhập, chuyển hướng theo vai trò
+        if (req.session.user.vaiTro === "admin") return res.redirect("/admin");
+        if (req.session.user.vaiTro === "student") return res.redirect("/student");
+        if (req.session.user.vaiTro === "teacher") return res.redirect("/teacher");
+    }
+    // Nếu chưa đăng nhập, hiển thị trang đăng nhập
+    res.redirect("/auth/sign-in");
+});
 
-// Thời khóa biểu
-app.use("/schedule", scheduleRouter); // Sử dụng /schedule như trong mã của bạn
+app.get("/api/student/schedule", async (req, res) => {
+    try {
+        const { day, month, year } = req.query;
+        const maSV = req.session.user.maSV;
 
-//giao vien info
-app.use("/gvien_info", gvienInfoRouter);
+        const date = new Date(year, month - 1, day);
+        const dayOfWeek = date.getDay();
+        const weekday = ['Chủ Nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7'][dayOfWeek];
 
-console.log("Current directory:", __dirname);
-console.log("Views directory:", path.join(__dirname, "resources", "view")); // Debug log
+        const formattedDate = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 
-// Khởi động server
+        const scheduleItems = await knex('sinhvien_tinchi as svtc')
+            .join('tinchi as tc', 'svtc.maTinChi', 'tc.maTinChi')
+            .join('lichhoc_tinchi as lh', 'tc.maTinChi', 'lh.maTinChi')
+            .leftJoin('giangvien as gv', 'lh.maGV', 'gv.maGV')
+            .select(
+                'tc.tenTinChi',
+                'lh.tietBD',
+                'lh.tietKT',
+                'lh.phong',
+                'lh.thu',
+                'lh.ngay',
+                knex.raw('CONCAT(gv.hoDem, " ", gv.ten) as tenGV')
+            )
+            .where('svtc.maSV', maSV)
+            .where(function() {
+                this.where('lh.ngay', formattedDate)
+                    .orWhere('lh.thu', weekday);
+            });
+
+        res.json(scheduleItems);
+    } catch (error) {
+        console.error('Error fetching schedule:', error);
+        res.status(500).json({ error: 'Đã xảy ra lỗi khi lấy lịch học' });
+    }
+});
+
+// Lắng nghe cổng
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
 });

@@ -1,0 +1,70 @@
+<!-- C:\PT\phan_tich_thiet_ke_phan_mem\src\resources\view\admin\dashboard.hbs -->
+<div class="container-fluid">
+    <h1 class="mt-4">Bảng điều khiển Admin</h1>
+
+    <!-- Chào mừng người dùng -->
+    <div class="alert alert-info mb-4">
+        <h3>Xin chào, {{user.email}}!</h3>
+        <p>Đây là trang tổng quan của bạn. Bạn có thể quản lý các thông tin quan trọng từ đây.</p>
+    </div>
+
+    <!-- Cards hiển thị thông tin tổng quan -->
+    <div class="row">
+        <!-- Tổng số khóa học -->
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-book fa-3x me-3"></i>
+                        <div>
+                            <h5 class="card-title">Tổng số khóa học</h5>
+                            <h3 class="card-text">{{totalCourses}}</h3>
+                            <a href="/admin/manage-courses" class="text-white">Quản lý <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tổng số sinh viên -->
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-users fa-3x me-3"></i>
+                        <div>
+                            <h5 class="card-title">Tổng số sinh viên</h5>
+                            <h3 class="card-text">{{totalStudents}}</h3>
+                            <a href="/admin/manage-students" class="text-white">Quản lý <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tổng số giảng viên -->
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-info">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-chalkboard-teacher fa-3x me-3"></i>
+                        <div>
+                            <h5 class="card-title">Tổng số giảng viên</h5>
+                            <h3 class="card-text">{{totalTeachers}}</h3>
+                            <a href="/admin/manage-teachers" class="text-white">Quản lý <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Thông tin bổ sung (Hoạt động gần đây) -->
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title">Hoạt động gần đây</h5>
+            <p class="card-text">Hiện tại chưa có hoạt động nào được ghi nhận.</p>
+            <!-- Có thể thêm logic để hiển thị các hoạt động sau này -->
+        </div>
+    </div>
+</div>

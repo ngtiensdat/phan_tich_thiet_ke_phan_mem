@@ -5,83 +5,8 @@
     font-family: Arial, sans-serif;
 }
 
-.sidebar {
-    width: 250px;
-    height: 100vh;
-    background: #112D54;
-    color: white;
-    position: fixed;
-    padding: 20px;
-}
-
-.sidebar-logo {
-    display: block;
-    width: 80%;
-    padding-bottom: 15px;
-    max-width: 150px;
-}
-
-.sidebar {
-    width: 15%;
-    background-color: #04284d;
-    color: white;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    position: fixed;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    overflow-y: auto;
-}
-
-.sidebar a {
-    width: 100%;
-    color: white;
-    text-decoration: none;
-    padding: 12px;
-    margin: 5px 0;
-    background-color: #064a87;
-    border-radius: 5px;
-    text-align: center;
-    cursor: pointer;
-    font-weight: bold;
-    display: block;
-}
-
-.sidebar a:hover {
-    background-color: #0056b3;
-}
-
-.logout-button {
-    position: absolute;
-    bottom: 1rem;
-    left: 1rem;
-    padding: 12px;
-    background-color: red;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    width: 10%;
-    min-width: 100px;
-    text-align: center;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.3s ease, transform 0.2s;
-}
-
-.logout-button:hover {
-    background-color: darkred;
-    transform: scale(1.05);
-}
-
 .content {
-    margin-left: 260px;
+    margin-left: 15%;
     padding: 20px;
     background: #F5F7FA;
     min-height: 100vh;
@@ -95,13 +20,39 @@
     padding: 15px;
     border-radius: 10px;
     margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .header input {
     width: 300px;
-    padding: 8px;
-    border: 1px solid #ccc;
+    padding: 10px;
+    border: 1px solid #ddd;
     border-radius: 5px;
+    font-size: 14px;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user span {
+    font-weight: bold;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #eee;
+}
+
+.calendar-section {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
 }
 
 .calendar-container {
@@ -115,52 +66,133 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 15px;
+}
+
+.calendar-header h2 {
+    font-size: 18px;
+    color: #112D54;
 }
 
 .calendar-header button {
     background: #112D54;
     color: white;
     border: none;
-    padding: 8px 12px;
+    padding: 8px 15px;
     cursor: pointer;
     border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.calendar-header button:hover {
+    background: #1e4b8f;
 }
 
 .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
+    gap: 8px;
     margin-top: 10px;
 }
 
+.calendar-grid::before {
+    content: "CN";
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    background: #f0f0f0;
+    border-radius: 5px;
+}
+
+.calendar-grid::before,
+.calendar-grid::after {
+    content: "";
+}
+
+.weekday-header {
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+    background: #f0f0f0;
+    border-radius: 5px;
+}
+
 .day {
-    background: #E0E0E0;
-    padding: 15px;
+    background: #f9f9f9;
+    padding: 15px 5px;
     text-align: center;
     border-radius: 5px;
     cursor: pointer;
     transition: 0.3s;
+    font-weight: 500;
 }
 
 .day:hover {
-    background: #FFC107;
+    background: #e6f0fd;
 }
 
 .day.active {
-    background: #FF9800;
+    background: #112D54;
     color: white;
 }
 
+.day.today {
+    border: 2px solid #112D54;
+}
+
+.empty-day {
+    background: transparent;
+}
+
 .schedule {
-    margin-top: 20px;
     background: white;
     padding: 20px;
     border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: fit-content;
 }
 
-#eventsList li {
-    padding: 10px;
-    background: #E3F2FD;
-    margin-top: 5px;
+.schedule h2 {
+    color: #112D54;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+#selectedDate {
+    color: #666;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.events-list {
+    list-style: none;
+}
+
+.events-list li {
+    padding: 12px;
+    background: #f0f7ff;
+    margin-bottom: 8px;
     border-radius: 5px;
+    border-left: 4px solid #112D54;
+}
+
+.events-list .no-events {
+    color: #999;
+    font-style: italic;
+    background: #f9f9f9;
+    border-left: none;
+    text-align: center;
+}
+
+@media (max-width: 992px) {
+    .calendar-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .content {
+        margin-left: 0;
+        padding: 10px;
+    }
 }

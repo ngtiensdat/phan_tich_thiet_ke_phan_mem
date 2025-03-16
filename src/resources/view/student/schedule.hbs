@@ -1,0 +1,30 @@
+<main class="content">
+    <header class="header">
+        <input type="text" placeholder="Tìm kiếm thông tin...">
+        <div class="user">
+            <span>{{user.hoDem}} {{user.ten}}</span>
+            <img src="{{#if user.anhDaiDien}}{{user.anhDaiDien}}{{else}}/img/default-avatar.png{{/if}}" 
+                alt="Avatar" class="user-avatar" onerror="this.src='/img/default-avatar.png'">
+        </div>
+    </header>
+
+    <section class="calendar-section">
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <button id="prevMonth">←</button>
+                <h2 id="currentMonthYear">Tháng 3 - 2025</h2>
+                <button id="nextMonth">→</button>
+            </div>
+            <div class="calendar-grid" id="calendarDays"></div>
+        </div>
+
+        <div id="schedule" class="schedule">
+            <h2>Lịch cá nhân</h2>
+            <p id="selectedDate">Chọn ngày để xem lịch</p>
+            <ul id="eventsList" class="events-list"></ul>
+        </div>
+    </section>
+</main>
+
+<link rel="stylesheet" href="/css/schedule.css">
+<script src="/js/schedule.js"></script>

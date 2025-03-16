@@ -1,21 +1,15 @@
+/* src/public/css/main_interface.css */
 body {
-    display: flex;
     font-family: Arial, sans-serif;
     margin: 0;
     height: 100vh;
+    display: flex;
 }
 
 .all {
     display: flex;
     width: 100%;
     height: 100vh;
-}
-
-.sidebar-logo {
-    display: block;
-    width: 80%;
-    padding-bottom: 15px;
-    max-width: 150px;
 }
 
 .sidebar {
@@ -26,12 +20,18 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-
     position: fixed;
     height: 100vh;
     top: 0;
     left: 0;
     overflow-y: auto;
+}
+
+.sidebar-logo {
+    display: block;
+    width: 80%;
+    padding-bottom: 15px;
+    max-width: 150px;
 }
 
 .sidebar a {
@@ -41,7 +41,6 @@ body {
     padding: 12px;
     margin: 5px 0;
     background-color: #064a87;
-    /* Màu gần giống với sidebar */
     border-radius: 5px;
     text-align: center;
     cursor: pointer;
@@ -58,27 +57,12 @@ body {
     width: 85%;
     padding: 20px;
     background-color: #ecf0f1;
+    min-height: 100vh;
 }
 
-.table {
+.content.no-sidebar {
+    margin-left: 0;
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-    text-align: center;
-}
-
-.table,
-.table th,
-.table td {
-    border: 1px solid black;
-    padding: 10px;
-}
-
-.table th {
-    background-color: #064a87;
-    /* Đồng bộ màu với sidebar */
-    color: white;
-    font-weight: bold;
 }
 
 .logout-button {
@@ -93,7 +77,6 @@ body {
     border-radius: 5px;
     width: 10%;
     min-width: 100px;
-    /* Đảm bảo nút không quá nhỏ */
     text-align: center;
     font-weight: bold;
     display: flex;
@@ -107,119 +90,21 @@ body {
     transform: scale(1.05);
 }
 
-.contact-bubble {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    background-color: #064a87;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 20px;
-}
-
-.course-container,
-.class-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-}
-
-.course-box,
-.class-box {
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background: #f9f9f9;
-    cursor: pointer;
-    width: 200px;
-    text-align: center;
-    font-weight: bold;
-}
-
-.course-box:hover,
-.class-box:hover {
-    background: #e0e0e0;
-}
-
-.student-info-container {
-    max-width: 1000px;
-    background: #fff;
-    padding: 60px;
-    border-radius: 20px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: flex-start;
-    gap: 60px;
-}
-
-.avatar {
-    width: 150px;
-    height: 200px;
-    border-radius: 8px;
-    object-fit: cover;
-    border: 2px solid #ddd;
-}
-
-.student-info-content {
-    flex: 1;
-}
-
-.student-info-title {
-    font-size: 20px;
-    font-weight: bold;
-    color: #003366;
-    margin-bottom: 10px;
-    border-bottom: 5px solid #ff6600;
-    padding-bottom: 10px;
-}
-
-.student-info-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 17px 20px;
-}
-
-.student-info-grid p {
-    margin: 0;
-}
-
-.student-info-grid strong {
-    color: #003366;
-}
-
-button {
-    background-color: #ff6600;
-    color: white;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-    margin-top: 15px;
-}
-
-button:hover {
-    background-color: #e65c00;
-}
-
-.footer {
-    text-align: center;
-    padding: 20px;
-    font-size: 14px;
-    background: #e9ecef;
-    margin-top: 20px;
-    border-radius: 10px;
-}
-
-.footer a {
-    text-decoration: none;
-    color: #002c77;
-    font-weight: bold;
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+    .content {
+        margin-left: 200px;
+        width: calc(100% - 200px);
+    }
+    .content.no-sidebar {
+        margin-left: 0;
+        width: 100%;
+    }
+    .logout-button {
+        width: 80%;
+        min-width: 80px;
+    }
 }

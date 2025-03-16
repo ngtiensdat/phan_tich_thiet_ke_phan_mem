@@ -1,0 +1,217 @@
+<!-- C:\PT\phan_tich_thiet_ke_phan_mem\src\resources\view\admin\manage-courses.hbs -->
+<div class="content-area">
+    <h1 class="mt-4">Quản lý môn học</h1>
+
+    <!-- Dropdown để chọn hành động -->
+    <div class="mb-4">
+        <label for="actionSelect" class="form-label">Chọn hành động:</label>
+        <select id="actionSelect" class="form-select" onchange="showForm(this.value)">
+            <option value="">-- Chọn hành động --</option>
+            <option value="add">Thêm môn học</option>
+            <option value="edit">Sửa môn học</option>
+            <option value="delete">Xóa môn học</option>
+        </select>
+    </div>
+
+    <!-- Form Thêm môn học -->
+    <div id="addForm" style="display: none;">
+        <h3>Thêm môn học mới</h3>
+        <form action="/admin/courses/add" method="POST" class="needs-validation" novalidate>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="tenTinChi" class="form-label">Tên môn học</label>
+                    <input type="text" class="form-control" id="tenTinChi" name="tenTinChi" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="soTinChi" class="form-label">Số tín chỉ</label>
+                    <input type="number" class="form-control" id="soTinChi" name="soTinChi" min="1" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="maKhoa" class="form-label">Khoa</label>
+                    <select class="form-select" id="maKhoa" name="maKhoa" required>
+                        <option value="">Chọn khoa</option>
+                        {{#each departments}}
+                        <option value="{{this.maKhoa}}">{{this.tenKhoa}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="maGV" class="form-label">Giảng viên</label>
+                    <select class="form-select" id="maGV" name="maGV" required>
+                        <option value="">Chọn giảng viên</option>
+                        {{#each teachers}}
+                        <option value="{{this.maGV}}">{{this.hoDem}} {{this.ten}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="phong" class="form-label">Phòng học</label>
+                    <input type="text" class="form-control" id="phong" name="phong" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="ngay" class="form-label">Ngày học</label>
+                    <input type="date" class="form-control" id="ngay" name="ngay" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="thu" class="form-label">Thứ</label>
+                    <select class="form-select" id="thu" name="thu" required>
+                        <option value="">Chọn thứ</option>
+                        <option value="Thứ 2">Thứ 2</option>
+                        <option value="Thứ 3">Thứ 3</option>
+                        <option value="Thứ 4">Thứ 4</option>
+                        <option value="Thứ 5">Thứ 5</option>
+                        <option value="Thứ 6">Thứ 6</option>
+                        <option value="Thứ 7">Thứ 7</option>
+                        <option value="Chủ nhật">Chủ nhật</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="tietBD" class="form-label">Tiết bắt đầu</label>
+                    <input type="number" class="form-control" id="tietBD" name="tietBD" min="1" max="12" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="tietKT" class="form-label">Tiết kết thúc</label>
+                    <input type="number" class="form-control" id="tietKT" name="tietKT" min="1" max="12" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="moTa" class="form-label">Mô tả</label>
+                <textarea class="form-control" id="moTa" name="moTa" rows="3"></textarea>
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">Thêm môn học</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Form Sửa môn học -->
+    <div id="editForm" style="display: none;">
+        <h3>Sửa môn học</h3>
+        <form action="/admin/courses/edit" method="POST" class="needs-validation" novalidate>
+            <div class="mb-3">
+                <label for="editMaTinChi" class="form-label">Chọn môn học để sửa</label>
+                <select class="form-select" id="editMaTinChi" name="maTinChi" required
+                    onchange="loadCourseData(this.value)">
+                    <option value="">Chọn môn học</option>
+                    {{#each courses}}
+                    <option value="{{this.maTinChi}}">{{this.tenTinChi}}</option>
+                    {{/each}}
+                </select>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="editTenTinChi" class="form-label">Tên môn học</label>
+                    <input type="text" class="form-control" id="editTenTinChi" name="tenTinChi" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="editSoTinChi" class="form-label">Số tín chỉ</label>
+                    <input type="number" class="form-control" id="editSoTinChi" name="soTinChi" min="1" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="editMaKhoa" class="form-label">Khoa</label>
+                    <select class="form-select" id="editMaKhoa" name="maKhoa" required>
+                        <option value="">Chọn khoa</option>
+                        {{#each departments}}
+                        <option value="{{this.maKhoa}}">{{this.tenKhoa}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="editMaGV" class="form-label">Giảng viên</label>
+                    <select class="form-select" id="editMaGV" name="maGV" required>
+                        <option value="">Chọn giảng viên</option>
+                        {{#each teachers}}
+                        <option value="{{this.maGV}}">{{this.hoDem}} {{this.ten}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="editPhong" class="form-label">Phòng học</label>
+                    <input type="text" class="form-control" id="editPhong" name="phong" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="editNgay" class="form-label">Ngày học</label>
+                    <input type="date" class="form-control" id="editNgay" name="ngay" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="editThu" class="form-label">Thứ</label>
+                    <select class="form-select" id="editThu" name="thu" required>
+                        <option value="">Chọn thứ</option>
+                        <option value="Thứ 2">Thứ 2</option>
+                        <option value="Thứ 3">Thứ 3</option>
+                        <option value="Thứ 4">Thứ 4</option>
+                        <option value="Thứ 5">Thứ 5</option>
+                        <option value="Thứ 6">Thứ 6</option>
+                        <option value="Thứ 7">Thứ 7</option>
+                        <option value="Chủ nhật">Chủ nhật</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="editTietBD" class="form-label">Tiết bắt đầu</label>
+                    <input type="number" class="form-control" id="editTietBD" name="tietBD" min="1" max="12" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="editTietKT" class="form-label">Tiết kết thúc</label>
+                    <input type="number" class="form-control" id="editTietKT" name="tietKT" min="1" max="12" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="editMoTa" class="form-label">Mô tả</label>
+                <textarea class="form-control" id="editMoTa" name="moTa" rows="3"></textarea>
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">Cập nhật môn học</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Form Xóa môn học -->
+    <div id="deleteForm" style="display: none;">
+        <h3>Xóa môn học</h3>
+        <form action="/admin/courses/delete" method="POST" class="needs-validation" novalidate>
+            <div class="mb-3">
+                <label for="deleteMaTinChi" class="form-label">Chọn môn học để xóa</label>
+                <select class="form-select" id="deleteMaTinChi" name="maTinChi" required>
+                    <option value="">Chọn môn học</option>
+                    {{#each courses}}
+                    <option value="{{this.maTinChi}}">{{this.tenTinChi}}</option>
+                    {{/each}}
+                </select>
+            </div>
+
+            <div class="alert alert-warning">
+                <strong>Cảnh báo:</strong> Hành động này không thể hoàn tác. Bạn có chắc chắn muốn xóa môn học này
+                không?
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-danger">Xóa môn học</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script defer src="/js/manage-courses.js"></script>

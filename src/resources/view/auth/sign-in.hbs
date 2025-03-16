@@ -1,0 +1,38 @@
+<body>
+    <div class="container">
+        <div class="login-container">
+            <div class="login-logo">
+                <img src="https://phenikaa-uni.edu.vn:3600/md/vi/logo-dh-phenikaa-h-vn_20220217083708.png"
+                    alt="Phenikaa University" class="img-fluid">
+            </div>
+
+            <h2 class="login-title">Đăng nhập</h2>
+
+            <form id="loginForm" action="#" method="POST" onsubmit="return false;">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+                    <label for="email">Email</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="password" placeholder="Mật khẩu" required>
+                    <label for="password">Mật khẩu</label>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="button" class="btn btn-phenikaa" onclick="login()">Đăng nhập</button>
+                    <a href="../auth/sign-up" class="btn btn-outline-phenikaa">Đăng ký</a>
+                </div>
+            </form>
+
+            <div class="login-footer">
+                <p><a href="#">Bạn không truy cập được vào tài khoản?</a></p>
+            </div>
+        </div>
+    </div>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/sign_in.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script defer src="/js/sign_in.js"></script>
+</body>

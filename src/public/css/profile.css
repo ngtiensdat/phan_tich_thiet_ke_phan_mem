@@ -1,0 +1,85 @@
+/* teacher-info.css */
+.teacher-info-container {
+    max-width: 1000px;
+    background: #fff;
+    padding: 60px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: flex-start;
+    gap: 60px;
+}
+
+.avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ddd;
+}
+
+.teacher-info-content {
+    flex: 1;
+}
+
+.teacher-info-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #003366;
+    margin-bottom: 10px;
+    border-bottom: 5px solid #28a745; /* Different color to distinguish from student */
+    padding-bottom: 10px;
+}
+
+.teacher-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 17px 20px;
+}
+
+.teacher-info-grid p {
+    margin: 0;
+}
+
+.teacher-info-grid strong {
+    color: #003366;
+}
+
+button {
+    background-color: #28a745; /* Different color to distinguish from student */
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 15px;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+.avatar-container {
+    position: relative;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+#change-avatar-btn {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+#change-avatar-btn:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}

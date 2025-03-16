@@ -1,85 +1,33 @@
+/* CSS cho trang đăng nhập Phenikaa University */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Roboto', Arial, sans-serif;
+  height: 100vh;
+  background: url("https://giadinh.phenikaa.com/wp-content/uploads/2023/09/2-2.jpg") no-repeat center center;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: url("https://giadinh.phenikaa.com/wp-content/uploads/2023/09/2-2.jpg")
-    no-repeat center center;
-  background-size: cover;
-  margin: 0; /* Ensure no default margins push the content */
-  padding: 0; /* Ensure no default padding affects alignment */
 }
 
-.login-section {
+.login-container {
+  width: 420px;
   background: white;
-  padding: 30px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
-  text-align: center;
-  width: 400px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  padding: 30px;
   position: relative;
-  z-index: 1; /* Ensure the form stays above the background */
+  z-index: 1;
+  margin: 0 auto; /* Thêm margin auto để căn giữa */
 }
 
-.login-section img {
-  width: 150px;
-  margin-bottom: 10px;
-}
-
-.login-section h2 {
-  margin-bottom: 10px;
-  color: #333;
-}
-
-.login-section input {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  box-sizing: border-box; /* Ensure padding doesn’t affect width */
-}
-
-.buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
-
-.buttons button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.btn-secondary {
-  background: #ccc;
-  color: #333;
-}
-
-.btn-primary {
-  background: #007bff;
-  color: white;
-}
-
-.btn-primary:hover {
-  background: #0056b3;
-}
-
-.login-options {
-  margin-top: 20px;
-  font-size: 14px;
-}
-
-.login-options a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-.login-options a:hover {
-  text-decoration: underline;
-}
+/* Các phần CSS khác giữ nguyên */

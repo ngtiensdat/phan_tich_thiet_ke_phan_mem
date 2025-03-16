@@ -1,0 +1,117 @@
+<!-- Include Bootstrap and Custom CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/enrollment.css">
+
+<div class="enrollment-container">
+    <h2 class="text-center">Quản lý Đăng Ký Môn Học</h2>
+
+    <!-- Success/Error Messages -->
+    <div id="messageContainer"></div>
+
+    <!-- Enrolled Courses Section -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h3 class="h5 mb-0 d-inline-block"><i class="fas fa-check-square me-2"></i>Môn Học Đã Đăng Ký</h3>
+        </div>
+        <div class="card-body">
+            {{#if enrolledCourses.length}}
+            <div class="table-responsive">
+                <table class="table table-striped table-hover" id="enrolledCoursesTable">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center" style="width: 10%;">Mã Môn</th>
+                            <th scope="col" style="width: 25%;">Tên Môn Học</th>
+                            <th scope="col" class="text-center" style="width: 10%;">Số Tín Chỉ</th>
+                            <th scope="col" style="width: 15%;">Giảng Viên</th>
+                            <th scope="col" style="width: 20%;">Lịch Học</th>
+                            <th scope="col" style="width: 10%;">Địa Điểm</th>
+                            <th scope="col" class="text-center" style="width: 10%;">Thao Tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each enrolledCourses}}
+                        <tr data-ma-tin-chi="{{maTinChi}}">
+                            <td class="text-center">{{maTinChi}}</td>
+                            <td>{{tenTinChi}}</td>
+                            <td class="text-center">{{soTinChi}}</td>
+                            <td>{{#if tenGiangVien}}{{tenGiangVien}}{{else}}<span class="text-muted">Chưa phân công</span>{{/if}}</td>
+                            <td>{{#if lichHoc}}{{lichHoc}}{{else}}<span class="text-muted">Chưa có lịch</span>{{/if}}</td>
+                            <td>{{#if diaDiem}}{{diaDiem}}{{else}}<span class="text-muted">Chưa có</span>{{/if}}</td>
+                            <td class="text-center">
+                                <form action="/student/enrollment/drop/{{maTinChi}}" method="post" class="d-inline drop-form">
+                                    <button type="submit" class="btn btn-danger btn-sm rounded-pill" data-ma-tin-chi="{{maTinChi}}">
+                                        <i class="fas fa-trash-alt"></i> Hủy
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            {{else}}
+            <div class="text-center py-4">
+                <p class="text-muted">Bạn chưa đăng ký môn học nào.</p>
+                <i class="fas fa-info-circle fa-2x"></i>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+
+    <!-- Available Courses Section -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+            <h3 class="h5 mb-0 d-inline-block"><i class="fas fa-plus-circle me-2"></i>Môn Học Có Thể Đăng Ký</h3>
+            <small class="ms-2 text-light">Danh sách phù hợp với khoa {{student.tenKhoa}}</small>
+        </div>
+        <div class="card-body">
+            {{#if availableCourses.length}}
+            <div class="table-responsive">
+                <table class="table table-striped table-hover" id="availableCoursesTable">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center" style="width: 10%;">Mã Môn</th>
+                            <th scope="col" style="width: 25%;">Tên Môn Học</th>
+                            <th scope="col" class="text-center" style="width: 10%;">Số Tín Chỉ</th>
+                            <th scope="col" style="width: 15%;">Giảng Viên</th>
+                            <th scope="col" style="width: 20%;">Lịch Học</th>
+                            <th scope="col" style="width: 10%;">Địa Điểm</th>
+                            <th scope="col" class="text-center" style="width: 10%;">Thao Tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each availableCourses}}
+                        <tr data-ma-tin-chi="{{maTinChi}}">
+                            <td class="text-center">{{maTinChi}}</td>
+                            <td>{{tenTinChi}}</td>
+                            <td class="text-center">{{soTinChi}}</td>
+                            <td>{{#if tenGiangVien}}{{tenGiangVien}}{{else}}<span class="text-muted">Chưa phân công</span>{{/if}}</td>
+                            <td>{{#if lichHoc}}{{lichHoc}}{{else}}<span class="text-muted">Chưa có lịch</span>{{/if}}</td>
+                            <td>{{#if diaDiem}}{{diaDiem}}{{else}}<span class="text-muted">Chưa có</span>{{/if}}</td>
+                            <td class="text-center">
+                                <form action="/student/enrollment/register" method="post" class="d-inline register-form">
+                                    <input type="hidden" name="maTinChi" value="{{maTinChi}}">
+                                    <button type="submit" class="btn btn-success btn-sm rounded-pill" data-ma-tin-chi="{{maTinChi}}">
+                                        <i class="fas fa-plus"></i> Đăng Ký
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            {{else}}
+            <div class="text-center py-4">
+                <p class="text-muted">Không có môn học nào có thể đăng ký.</p>
+                <i class="fas fa-exclamation-circle fa-2x"></i>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<!-- Include Bootstrap JS and Custom JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/enrollment.js"></script>

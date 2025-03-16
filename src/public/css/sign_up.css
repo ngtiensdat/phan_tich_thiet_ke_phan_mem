@@ -1,0 +1,21 @@
+/* CSS bổ sung cho trang đăng ký */
+.signup-container {
+    width: 420px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    padding: 30px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Kiểu dáng cho form-select trong Bootstrap */
+.form-select {
+    height: 58px;
+}
+
+/* Đảm bảo label của select được căn chỉnh đúng */
+.form-floating > .form-select {
+    padding-top: 1.625rem;
+    padding-bottom: 0.625rem;
+}

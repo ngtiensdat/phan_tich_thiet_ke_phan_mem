@@ -59,3 +59,35 @@ button {
 button:hover {
     background-color: #e65c00;
 }
+
+.avatar-container {
+    position: relative;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ddd;
+}
+
+#change-avatar-btn {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+#change-avatar-btn:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}
