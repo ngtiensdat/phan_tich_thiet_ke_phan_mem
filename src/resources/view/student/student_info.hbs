@@ -1,62 +1,91 @@
 <div id="student-info" class="student-info">
-        <div class="student-info-container">
-                <div class="avatar-container">
-                        <img id="student-avatar" src="{{studentInfo.anhDaiDien}}" alt="Ảnh đại diện" class="avatar">
-                        <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
-                        <button id="change-avatar-btn" onclick="document.getElementById('avatar-upload').click();"
-                                style="display: none;">Đổi ảnh</button>
-                </div>
-                <div class="student-info-content">
-                        <div class="student-info-title">THÔNG TIN CƠ BẢN</div>
-                        <div class="student-info-grid">
-                                <p><strong>Mã SV:</strong> <input type="text" id="student-maSV"
-                                                value="{{studentInfo.maSV}}" disabled>
-                                </p>
-                                <p><strong>Họ và đệm:</strong> <input type="text" id="student-hoDem"
-                                                value="{{studentInfo.hoDem}}" disabled></p>
-                                <p><strong>Ngày sinh:</strong> <input type="date" id="student-ngaySinh"
-                                                value="{{formatDateInput studentInfo.ngaySinh}}" disabled></p>
-                                <p><strong>Tên:</strong> <input type="text" id="student-ten" value="{{studentInfo.ten}}"
-                                                disabled></p>
-                                <p><strong>Khóa đào tạo:</strong> <input type="text" id="student-khoaHoc"
-                                                value="{{studentInfo.khoaHoc}}" disabled></p>
-                                <p><strong>Lớp:</strong> <input type="text" id="student-lop" value="{{studentInfo.lop}}"
-                                                disabled></p>
-                                <p><strong>Niên khóa:</strong> <input type="text" id="student-nienKhoa"
-                                                value="{{studentInfo.nienKhoa}}" disabled></p>
-                                <p><strong>Khoa quản lý:</strong> <input type="text" id="student-tenKhoa"
-                                                value="{{studentInfo.tenKhoa}}" disabled></p>
-                                <p><strong>Email:</strong> <input type="email" id="student-email"
-                                                value="{{studentInfo.email}}" disabled></p>
-                                <p><strong>Ngành:</strong> <input type="text" id="student-nganh"
-                                                value="{{studentInfo.nganh}}" disabled>
-                                </p>
-                                <p><strong>Giới tính:</strong>
-                                        <select id="student-gioiTinh" disabled>
-                                                <option value="Nam" {{#if (eq studentInfo.gioiTinh "Nam"
-                                                        )}}selected{{/if}}>Nam</option>
-                                                <option value="Nữ" {{#if (eq studentInfo.gioiTinh "Nữ"
-                                                        )}}selected{{/if}}>Nữ</option>
-                                                <option value="Khác" {{#if (eq studentInfo.gioiTinh "Khác"
-                                                        )}}selected{{/if}}>Khác</option>
-                                        </select>
-                                </p>
-                                <p><strong>Hệ đào tạo:</strong> <input type="text" id="student-heDaoTao"
-                                                value="{{studentInfo.heDaoTao}}" disabled></p>
-                                <p><strong>Trạng thái:</strong> <input type="text" id="student-trangThai"
-                                                value="{{studentInfo.trangThai}}" disabled></p>
-                                <p><strong>Vai trò:</strong> <input type="text" id="student-vaiTro"
-                                                value="{{studentInfo.vaiTro}}" disabled></p>
-                                <p><strong>Chương trình đào tạo:</strong> <input type="text"
-                                                id="student-chuongTrinhDaoTao" value="{{studentInfo.chuongTrinhDaoTao}}"
-                                                disabled></p>
-                        </div>
-                        <button id="edit-info-btn" onclick="enableEdit()">Cập nhật thông tin</button>
-                        <button id="save-info-btn" onclick="saveStudentInfo()" style="display: none;">Lưu thông
-                                tin</button>
-                </div>
+    <div class="student-info-container">
+        <div class="avatar-container">
+            <img id="student-avatar" src="{{studentInfo.anhDaiDien}}" alt="Ảnh đại diện" class="avatar">
+            <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+            <button id="change-avatar-btn" onclick="document.getElementById('avatar-upload').click();"
+                    style="display: none;">Đổi ảnh</button>
         </div>
+        <div class="student-info-content">
+            <div class="student-info-title">THÔNG TIN CƠ BẢN</div>
+            <div class="student-info-grid">
+                <div class="info-item">
+                    <label>Mã SV:</label>
+                    <input type="text" id="student-maSV" value="{{studentInfo.maSV}}" disabled>
+                </div>
+                <div class="info-item">
+                    <label>Họ và đệm:</label>
+                    <input type="text" id="student-hoDem" value="{{studentInfo.hoDem}}" disabled>
+                </div>
+                <div class="info-item">
+                    <label>Ngày sinh:</label>
+                    <input type="date" id="student-ngaySinh" value="{{formatDateInput studentInfo.ngaySinh}}" disabled>
+                </div>
+                <div class="info-item">
+                    <label>Tên:</label>
+                    <input type="text" id="student-ten" value="{{studentInfo.ten}}" disabled>
+                </div>
+                <div class="info-item">
+                    <label>Khóa đào tạo:</label>
+                    <input type="text" id="student-khoaHoc" value="{{studentInfo.khoaHoc}}" disabled>
+                </div>
+                <div class="info-item">
+                    <label>Lớp:</label>
+                    <input type="text" id="student-lop" value="{{studentInfo.lop}}" disabled>
+                </div>
+                <div class="info-item">
+                    <label>Niên khóa:</label>
+                    <input type="text" id="student-nienKhoa" value="{{studentInfo.nienKhoa}}" disabled>
+                </div>
+                <div class="info-item">
+                    <label>Khoa quản lý:</label>
+                    <input type="text" id="student-tenKhoa" value="{{studentInfo.tenKhoa}}" disabled>
+                </div>
+                <div class="info-item">
+                    <label>Email:</label>
+                    <input type="email" id="student-email" value="{{studentInfo.email}}" disabled>
+                </div>
+                <div class="info-item">
+                    <label>Ngành:</label>
+                    <input type="text" id="student-nganh" value="{{studentInfo.nganh}}" disabled>
+                </div>
+                <div class="info-item">
+                    <label>Giới tính:</label>
+                    <select id="student-gioiTinh" disabled>
+                        <option value="Nam" {{#if (eq studentInfo.gioiTinh "Nam")}}selected{{/if}}>Nam</option>
+                        <option value="Nữ" {{#if (eq studentInfo.gioiTinh "Nữ")}}selected{{/if}}>Nữ</option>
+                        <option value="Khác" {{#if (eq studentInfo.gioiTinh "Khác")}}selected{{/if}}>Khác</option>
+                    </select>
+                </div>
+                <div class="info-item">
+                    <label>Hệ đào tạo:</label>
+                    <input type="text" id="student-heDaoTao" value="{{studentInfo.heDaoTao}}" disabled>
+                </div>
+                <div class="info-item">
+                    <label>Trạng thái:</label>
+                    <input type="text" id="student-trangThai" value="{{studentInfo.trangThai}}" disabled>
+                </div>
+                <div class="info-item">
+                    <label>Vai trò:</label>
+                    <input type="text" id="student-vaiTro" value="{{studentInfo.vaiTro}}" disabled>
+                </div>
+                <div class="info-item">
+                    <label>Chương trình đào tạo:</label>
+                    <input type="text" id="student-chuongTrinhDaoTao" value="{{studentInfo.chuongTrinhDaoTao}}" disabled>
+                </div>
+            </div>
+            <div class="button-container">
+                <button id="edit-info-btn" onclick="enableEdit()">
+                    <i class="fas fa-edit"></i> Cập nhật thông tin
+                </button>
+                <button id="save-info-btn" onclick="saveStudentInfo()" style="display: none;">
+                    <i class="fas fa-save"></i> Lưu thông tin
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" type="text/css" href="/css/student_info.css">
 <script src="/js/student_info.js"></script>

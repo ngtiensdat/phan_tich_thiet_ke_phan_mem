@@ -1,32 +1,59 @@
 {{!-- views/teachers/profile.hbs --}}
-<div class="container">
-    <div id="teacher-info" class="teacher-info">
-        <div class="teacher-info-container">
-            <div class="avatar-container">
-                <img id="teacher-avatar" src="{{teacherInfo.anhDaiDien}}" alt="Ảnh đại diện giảng viên {{teacherInfo.ten}}" class="avatar">
-                <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
-                <button id="change-avatar-btn" class="btn btn-sm btn-outline-primary" style="display: none;">Đổi ảnh</button>
+<div id="teacher-info" class="teacher-info">
+    <div class="teacher-info-container">
+        <div class="avatar-container">
+            <img id="teacher-avatar" src="{{teacherInfo.anhDaiDien}}" alt="Ảnh đại diện giảng viên {{teacherInfo.ten}}" class="avatar">
+            <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+            <button id="change-avatar-btn" onclick="document.getElementById('avatar-upload').click();"
+                    style="display: none;">Đổi ảnh</button>
+        </div>
+        <div class="teacher-info-content">
+            <div class="teacher-info-title">THÔNG TIN GIẢNG VIÊN</div>
+            <div class="teacher-info-grid">
+                <div class="info-item">
+                    <label>Mã GV:</label>
+                    <input type="text" id="teacher-maGV" value="{{teacherInfo.maGV}}" disabled>
+                </div>
+                <div class="info-item">
+                    <label>Họ và đệm:</label>
+                    <input type="text" id="teacher-hoDem" value="{{teacherInfo.hoDem}}" disabled>
+                </div>
+                <div class="info-item">
+                    <label>Ngày sinh:</label>
+                    <input type="date" id="teacher-ngaySinh" value="{{formatDateInput teacherInfo.ngaySinh}}" disabled>
+                </div>
+                <div class="info-item">
+                    <label>Tên:</label>
+                    <input type="text" id="teacher-ten" value="{{teacherInfo.ten}}" disabled>
+                </div>
+                <div class="info-item">
+                    <label>Email:</label>
+                    <input type="email" id="teacher-email" value="{{teacherInfo.email}}" disabled>
+                </div>
+                <div class="info-item">
+                    <label>Khoa quản lý:</label>
+                    <input type="text" id="teacher-tenKhoa" value="{{teacherInfo.tenKhoa}}" disabled>
+                </div>
+                <div class="info-item">
+                    <label>Vai trò:</label>
+                    <input type="text" id="teacher-vaiTro" value="{{teacherInfo.vaiTro}}" disabled>
+                </div>
             </div>
-            <div class="teacher-info-content">
-                <div class="teacher-info-title">THÔNG TIN GIẢNG VIÊN</div>
-                <div class="teacher-info-grid">
-                    <p><strong>Mã GV:</strong> <input type="text" id="teacher-maGV" value="{{teacherInfo.maGV}}" disabled></p>
-                    <p><strong>Họ và đệm:</strong> <input type="text" id="teacher-hoDem" value="{{teacherInfo.hoDem}}" disabled></p>
-                    <p><strong>Ngày sinh:</strong> <input type="date" id="teacher-ngaySinh" value="{{formatDateInput teacherInfo.ngaySinh}}" disabled></p>
-                    <p><strong>Tên:</strong> <input type="text" id="teacher-ten" value="{{teacherInfo.ten}}" disabled></p>
-                    <p><strong>Email:</strong> <input type="email" id="teacher-email" value="{{teacherInfo.email}}" disabled></p>
-                    <p><strong>Khoa quản lý:</strong> <input type="text" id="teacher-tenKhoa" value="{{teacherInfo.tenKhoa}}" disabled></p>
-                    <p><strong>Vai trò:</strong> <input type="text" id="teacher-vaiTro" value="{{teacherInfo.vaiTro}}" disabled></p>
-                </div>
-                <div class="teacher-actions">
-                    <button id="edit-info-btn" class="btn btn-primary">Cập nhật thông tin</button>
-                    <button id="save-info-btn" class="btn btn-success" style="display: none;">Lưu thông tin</button>
-                    <button id="cancel-edit-btn" class="btn btn-secondary" style="display: none;">Hủy</button>
-                </div>
+            <div class="button-container">
+                <button id="edit-info-btn" onclick="enableEdit()">
+                    <i class="fas fa-edit"></i> Cập nhật thông tin
+                </button>
+                <button id="save-info-btn" onclick="saveTeacherInfo()" style="display: none;">
+                    <i class="fas fa-save"></i> Lưu thông tin
+                </button>
+                <button id="cancel-edit-btn" onclick="cancelEdit()" style="display: none;">
+                    <i class="fas fa-times"></i> Hủy
+                </button>
             </div>
         </div>
     </div>
 </div>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" type="text/css" href="/css/profile.css">
 <script src="/js/profile.js"></script>
