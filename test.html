@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Đăng Ký</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+            padding: 0;
+        }
+
+        .container {
+            width: 50%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .button {
+            padding: 10px 20px;
+            border: none;
+            color: white;
+            background-color: blue;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            background-color: darkblue;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+    <script>
+        let courses = [];
+        let classes = [];
+
+        function showSection(section) {
+            document.getElementById('courses-section').style.display = 'none';
+            document.getElementById('classes-section').style.display = 'none';
+            document.getElementById(section).style.display = 'block';
+        }
+
+        function addClass() {
+            const semester = document.getElementById("class-semester").value;
+            const year = document.getElementById("class-year").value;
+            const courseName = document.getElementById("class-course").value;
+            const teacher = document.getElementById("class-teacher").value;
+            const building = document.getElementById("class-building").value;
+            const roomNumber = document.getElementById("class-room-number").value;
+            const session = document.getElementById("class-session").value;
+
+            if (!roomNumber) {
+                alert("Vui lòng nhập số phòng hợp lệ!");
+                return;
+            }
+
+            const room = `${building} - ${roomNumber}`;
+
+            // Kiểm tra trùng phòng học & ca học giữa các ngành cùng kỳ & năm
+            const isRoomTaken = classes.some(c => c.room === room && c.session === session && c.semester === semester && c.year === year);
+            if (isRoomTaken) {
+                alert("Phòng học này đã có lớp học khác trong cùng ca, kỳ và năm học!");
+                return;
+            }
+
+            let count = classes.filter(c => c.course.startsWith(courseName)).length + 1;
+            const className = `${courseName} N${String(count).padStart(2, '0')}`;
+            classes.push({ className, course: courseName, teacher, room, session, semester, year });
+
+            const table = document.getElementById("class-table");
+            const row = table.insertRow(-1);
+            row.innerHTML = `<td class='border p-2'>${className}</td>
+        <td class='border p-2'>${courseName}</td>
+        <td class='border p-2'>${teacher}</td>
+        <td class='border p-2'>${room}</td>
+        <td class='border p-2'>${session}</td>
+        <td class='border p-2'><button onclick='deleteClass(this)' class='bg-red-500 text-white px-2 py-1 rounded'>Xóa</button></td>`;
+        }
+
+
+
+        function deleteCourse(button, courseId) {
+            button.parentElement.parentElement.remove();
+            courses = courses.filter(c => c.id !== courseId);
+            updateClassCourseList();
+        }
+
+        function updateClassCourseList() {
+            const select = document.getElementById("class-course");
+            select.innerHTML = "";
+            courses.forEach(course => {
+                const option = document.createElement("option");
+                option.value = course.name;
+                option.textContent = course.name;
+                select.appendChild(option);
+            });
+        }
+        function updateClassDepartmentList() {
+            const select = document.getElementById("class-department");
+            select.innerHTML = "<option value=''>Chọn ngành</option>";
+
+            let departments = new Set();
+            courses.forEach(course => departments.add(course.department));
+
+            departments.forEach(dept => {
+                const option = document.createElement("option");
+                option.value = dept;
+                option.textContent = dept;
+                select.appendChild(option);
+            });
+        }
+
+        function updateFilteredCourses() {
+            const selectedDept = document.getElementById("class-department").value;
+            const selectedSemester = document.getElementById("class-semester").value;
+            const selectedYear = document.getElementById("class-year").value;
+            const select = document.getElementById("class-course");
+            select.innerHTML = "";
+
+            courses
+                .filter(course => course.department === selectedDept && course.semester === selectedSemester && course.year === selectedYear)
+                .forEach(course => {
+                    const option = document.createElement("option");
+                    option.value = course.name;
+                    option.textContent = course.name;
+                    select.appendChild(option);
+                });
+        }
+
+
+
+        function addCourse() {
+            const courseName = document.getElementById("course-name").value;
+            const courseCredits = document.getElementById("course-credits").value;
+            const semester = document.getElementById("semester").value;
+            const year = document.getElementById("year").value;
+            const department = document.getElementById("department").value;
+
+            if (courseName && courseCredits && semester && year && department) {
+                const courseId = Math.random().toString(36).substr(2, 5).toUpperCase();
+                courses.push({ id: courseId, name: courseName, department, semester, year });
+
+                const table = document.getElementById("course-table");
+                const row = table.insertRow(-1);
+                row.innerHTML = `<td class='border p-2'>${courseId}</td>
+                        <td class='border p-2'>${courseName}</td>
+                        <td class='border p-2'>${courseCredits}</td>
+                        <td class='border p-2'>${department}</td>
+                        <td class='border p-2'>${semester}</td>
+                        <td class='border p-2'>${year}</td>
+                        <td class='border p-2'><button onclick='deleteCourse(this, "${courseId}")' class='bg-red-500 text-white px-2 py-1 rounded'>Xóa</button></td>`;
+
+                updateClassDepartmentList();
+                updateFilteredCourses();
+            }
+        }
+
+        function deleteClass(button) {
+            button.parentElement.parentElement.remove();
+        }
+    </script>
+</head>
+
+<body class="bg-gray-100 p-6">
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg text-center">
+        <h2 class="text-2xl font-bold mb-4">Chọn Chức Năng</h2>
+        <div class="flex justify-center space-x-4">
+            <button onclick="showSection('courses-section')" class="bg-blue-500 text-white px-4 py-2 rounded">Học
+                phần</button>
+            <button onclick="showSection('classes-section')"
+                class="bg-green-500 text-white px-4 py-2 rounded">Lớp</button>
+        </div>
+    </div>
+
+    <div id="courses-section" class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg mt-6 hidden">
+        <h2 class="text-2xl font-bold mb-4">Danh Sách Học Phần</h2>
+        <label>Kỳ học:</label>
+        <select id="semester" class="border p-2 mb-4 w-full">
+            <option>Kỳ 1</option>
+            <option>Kỳ 2</option>
+        </select>
+        <label>Năm học:</label>
+        <select id="year" class="border p-2 mb-4 w-full">
+            <option>2024-2025</option>
+            <option>2025-2026</option>
+        </select>
+        <label>Ngành học:</label>
+        <input type="text" id="department" class="border p-2 mb-4 w-full">
+        <label>Tên học phần:</label>
+        <input type="text" id="course-name" class="border p-2 mb-4 w-full">
+        <label>Số tín chỉ:</label>
+        <input type="number" id="course-credits" class="border p-2 mb-4 w-full">
+        <button onclick="addCourse()" class="bg-blue-500 text-white px-4 py-2 rounded">Thêm Học Phần</button>
+
+        <table class="w-full border-collapse border border-gray-300 mt-4" id="course-table">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="border p-2">Mã Môn</th>
+                    <th class="border p-2">Tên Môn Học</th>
+                    <th class="border p-2">Số Tín Chỉ</th>
+                    <th class="border p-2">Ngành Học</th>
+                    <th class="border p-2">Hành Động</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div id="classes-section" class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg mt-6">
+        <h2 class="text-2xl font-bold mb-4">Danh Sách Lớp Học</h2>
+        <label>Kỳ học:</label>
+        <select id="class-semester" class="border p-2 mb-4 w-full">
+            <option value="Kỳ 1">Kỳ 1</option>
+            <option value="Kỳ 2">Kỳ 2</option>
+        </select>
+        <label>Năm học:</label>
+        <select id="class-year" class="border p-2 mb-4 w-full">
+            <option value="2024-2025">2024-2025</option>
+            <option value="2025-2026">2025-2026</option>
+        </select>
+
+        <label>Ngành học:</label>
+        <select id="class-department" class="border p-2 mb-4 w-full" onchange="updateFilteredCourses()">
+            <option value="">Chọn ngành</option>
+        </select>
+        <label>Môn học:</label>
+        <select id="class-course" class="border p-2 mb-4 w-full"></select>
+        <label>Giảng viên:</label>
+        <input type="text" id="class-teacher" class="border p-2 mb-4 w-full">
+        <label>Tòa:</label>
+        <select id="class-building" class="border p-2 mb-4 w-full">
+            <option value="A1">A1</option>
+            <option value="A2">A2</option>
+            <option value="A3">A3</option>
+            <option value="A4">A4</option>
+            <option value="A5">A5</option>
+            <option value="A6">A6</option>
+            <option value="A7">A7</option>
+            <option value="A8">A8</option>
+        </select>
+
+        <label>Số phòng:</label>
+        <input type="number" id="class-room-number" class="border p-2 mb-4 w-full" min="101" max="999">
+
+        <label>Ca học:</label>
+        <select id="class-session" class="border p-2 mb-4 w-full">
+            <option value="Ca 1">Ca 1 (6h45-9h25)</option>
+            <option value="Ca 2">Ca 2 (9h30-12h10)</option>
+            <option value="Ca 3">Ca 3 (13h-15h40)</option>
+            <option value="Ca 4">Ca 4 (15h45-18h25)</option>
+        </select>
+        <button onclick="addClass()" class="bg-green-500 text-white px-4 py-2 rounded">Thêm Lớp</button>
+        <table class="w-full border-collapse border border-gray-300 mt-4" id="class-table">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="border p-2">Tên Lớp</th>
+                    <th class="border p-2">Môn Học</th>
+                    <th class="border p-2">Giảng Viên</th>
+                    <th class="border p-2">Phòng</th>
+                    <th class="border p-2">Ca Học</th>
+                    <th class="border p-2">Hành Động</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+    </div>
+</body>
+
+</html>
